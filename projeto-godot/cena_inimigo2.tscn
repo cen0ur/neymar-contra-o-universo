@@ -1,0 +1,152 @@
+[gd_scene format=3 uid="uid://ba3i6ir4tmqf1"]
+
+[ext_resource type="Script" uid="uid://dme1o2vouxuf5" path="res://script_inimigo2.gd" id="1_sld13"]
+[ext_resource type="Texture2D" uid="uid://le84syws3mv8" path="res://cebolinha.png" id="2_sld13"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gt3kb"]
+size = Vector2(49, 124)
+
+[sub_resource type="Animation" id="Animation_jpbw4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cebolinha:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(762, 3, 111, 194)]
+}
+
+[sub_resource type="Animation" id="Animation_wb0th"]
+resource_name = "atacando"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cebolinha:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(359, 555, 131, 165), Rect2(599, 546, 131, 165), Rect2(840, 541, 176, 163), Rect2(1110, 550, 186, 154.5), Rect2(1384, 552, 158, 158), Rect2(1658, 563, 146.66666, 161.5)]
+}
+
+[sub_resource type="Animation" id="Animation_sld13"]
+resource_name = "correndo"
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cebolinha:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(459, 210, 180, 194), Rect2(719, 204, 168, 183), Rect2(985, 211, 171, 162), Rect2(1257, 216, 166, 157), Rect2(1533, 205, 166, 175.5)]
+}
+
+[sub_resource type="Animation" id="Animation_sw742"]
+resource_name = "parado"
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cebolinha:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(509, 3, 113, 194), Rect2(762, 3, 111, 194), Rect2(1025, 2, 112, 195), Rect2(1280, 2, 113, 195), Rect2(1543, 2, 113, 195)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jpbw4"]
+_data = {
+&"RESET": SubResource("Animation_jpbw4"),
+&"atacando": SubResource("Animation_wb0th"),
+&"correndo": SubResource("Animation_sld13"),
+&"parado": SubResource("Animation_sw742")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3r67k"]
+size = Vector2(121, 24)
+
+[node name="Inimigo2" type="Node2D" unique_id=879218546]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1525321210]
+position = Vector2(0, 1)
+collision_layer = 4
+script = ExtResource("1_sld13")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=646099643]
+position = Vector2(-2.5, -1)
+shape = SubResource("RectangleShape2D_gt3kb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D" unique_id=1610695618]
+libraries/ = SubResource("AnimationLibrary_jpbw4")
+
+[node name="RayCast2D" type="RayCast2D" parent="CharacterBody2D" unique_id=1578305454]
+position = Vector2(-150, -2)
+scale = Vector2(5.392893, 4.6762314)
+target_position = Vector2(58.41021, 0)
+collision_mask = 2
+
+[node name="Area2D" type="Area2D" parent="CharacterBody2D" unique_id=851623594]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D" unique_id=689291340]
+position = Vector2(0, -18)
+shape = SubResource("RectangleShape2D_3r67k")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="CharacterBody2D" unique_id=213531596]
+position = Vector2(48, 42)
+rect = Rect2(-10, -17, 15, 36)
+
+[node name="Cebolinha" type="Sprite2D" parent="CharacterBody2D" unique_id=1344478157]
+position = Vector2(-7.5, -3.694058)
+scale = Vector2(0.73451316, 0.83820564)
+texture = ExtResource("2_sld13")
+region_enabled = true
+region_rect = Rect2(762, 3, 111, 194)
+
+[connection signal="body_entered" from="CharacterBody2D/Area2D" to="CharacterBody2D" method="causar_dano_personagem"]
+[connection signal="screen_entered" from="CharacterBody2D/VisibleOnScreenNotifier2D" to="CharacterBody2D" method="perseguir"]
+[connection signal="screen_exited" from="CharacterBody2D/VisibleOnScreenNotifier2D" to="CharacterBody2D" method="encerrar_perseguicao"]

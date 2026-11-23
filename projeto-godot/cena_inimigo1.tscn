@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://4acqj7530toc"]
+
+[ext_resource type="Script" uid="uid://br05vflqqunow" path="res://script_inimigo1.gd" id="1_l6xlw"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gt3kb"]
+load_path = "res://.godot/imported/cascao.png-a727e40958d1c7e02b4cabb49f145484.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_25wn8"]
+size = Vector2(81, 153)
+
+[sub_resource type="Animation" id="Animation_xyouc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cascao:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(727, 11, 140, 216)]
+}
+
+[sub_resource type="Animation" id="Animation_gt3kb"]
+resource_name = "atirando"
+length = 1.2
+loop_mode = 1
+step = 0.2
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"atirar_cartao"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cascao:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(186, 507, 164, 215), Rect2(555, 511, 205, 209), Rect2(943, 507, 243, 213), Rect2(1350, 510, 347, 210), Rect2(1787, 510, 231, 210)]
+}
+
+[sub_resource type="Animation" id="Animation_l6xlw"]
+resource_name = "parado"
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cascao:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(238, 9, 127, 210), Rect2(645, 12, 126, 207), Rect2(1042, 14, 124, 205), Rect2(1437, 12, 126, 207), Rect2(1827, 11, 127, 208)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xyouc"]
+_data = {
+&"RESET": SubResource("Animation_xyouc"),
+&"atirando": SubResource("Animation_gt3kb"),
+&"parado": SubResource("Animation_l6xlw")
+}
+
+[node name="Inimigo1" type="Node2D" unique_id=706790748]
+position = Vector2(590, 319)
+metadata/_edit_vertical_guides_ = [5544.0]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1015634075]
+position = Vector2(0, -2)
+collision_layer = 4
+script = ExtResource("1_l6xlw")
+
+[node name="Cascao" type="Sprite2D" parent="CharacterBody2D" unique_id=1224281841]
+position = Vector2(15.293584, -18.05953)
+scale = Vector2(0.67254233, 0.7686582)
+texture = SubResource("CompressedTexture2D_gt3kb")
+region_enabled = true
+region_rect = Rect2(727, 11, 140, 216)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1474043473]
+position = Vector2(13.5, -17.5)
+shape = SubResource("RectangleShape2D_25wn8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D" unique_id=195058058]
+libraries/ = SubResource("AnimationLibrary_xyouc")
+autoplay = &"parado"
+
+[node name="Marker2D" type="Marker2D" parent="CharacterBody2D" unique_id=1708034772]
+position = Vector2(-51, -26)
+
+[node name="RayCast2D" type="RayCast2D" parent="CharacterBody2D" unique_id=1093094197]
+position = Vector2(-404, -6)
+scale = Vector2(1, 5.0000014)
+target_position = Vector2(814, 0)
+collision_mask = 2

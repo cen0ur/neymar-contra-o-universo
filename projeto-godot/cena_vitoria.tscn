@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dl2v8u2fjotne"]
+
+[ext_resource type="Script" uid="uid://b7yeqpb84il5m" path="res://script_final.gd" id="1_klqlh"]
+[ext_resource type="Texture2D" uid="uid://bqfg3l5b4jtwf" path="res://vitoria.jpeg" id="2_nheyb"]
+[ext_resource type="StyleBox" uid="uid://bqta71tg4qkv3" path="res://EstiloBotao/BotaoNormal.tres" id="3_1kted"]
+[ext_resource type="StyleBox" uid="uid://bby615vl7f10j" path="res://EstiloBotao/BotaoMouseHover.tres" id="4_8lsvk"]
+[ext_resource type="AudioStream" uid="uid://cn5ce52fo2qmi" path="res://Sons/Música_venceu_o_jogo.mp3" id="5_3c0ew"]
+
+[node name="Node2D" type="Node2D" unique_id=298664499]
+script = ExtResource("1_klqlh")
+
+[node name="Vitoria" type="Sprite2D" parent="." unique_id=1368717840]
+position = Vector2(570.5, 324)
+scale = Vector2(0.7571614, 0.6328125)
+texture = ExtResource("2_nheyb")
+
+[node name="Button" type="Button" parent="." unique_id=344359192]
+offset_left = 519.0
+offset_top = 413.0
+offset_right = 978.0
+offset_bottom = 488.0
+theme_override_styles/normal = ExtResource("3_1kted")
+theme_override_styles/pressed = ExtResource("4_8lsvk")
+theme_override_styles/hover = ExtResource("4_8lsvk")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=379655884]
+stream = ExtResource("5_3c0ew")
+autoplay = true
+
+[connection signal="pressed" from="Button" to="." method="ir_para_inicio"]

@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://ba84072tecoyb"]
+
+[ext_resource type="Script" uid="uid://ll5gm8i2wjll" path="res://script_cartao.gd" id="1_whwj6"]
+[ext_resource type="Texture2D" uid="uid://dlbt7xww5fop0" path="res://coelho.png" id="2_whwj6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bnfh"]
+size = Vector2(69, 60)
+
+[sub_resource type="Animation" id="Animation_ks231"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_olowh"]
+resource_name = "movendo"
+length = 0.6
+loop_mode = 1
+step = 0.2
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vpwsh"]
+_data = {
+&"RESET": SubResource("Animation_ks231"),
+&"movendo": SubResource("Animation_olowh")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ehpj2"]
+size = Vector2(62, 52)
+
+[node name="Cartao" type="Node2D" unique_id=297855989]
+position = Vector2(75, 306)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=2062246911]
+script = ExtResource("1_whwj6")
+
+[node name="Coelho" type="Sprite2D" parent="CharacterBody2D" unique_id=1393723863]
+position = Vector2(28.093775, 8.499981)
+scale = Vector2(0.043441672, 0.060515866)
+texture = ExtResource("2_whwj6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1042100621]
+position = Vector2(29.5, 7)
+shape = SubResource("RectangleShape2D_1bnfh")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D" unique_id=449191004]
+libraries/ = SubResource("AnimationLibrary_vpwsh")
+autoplay = &"movendo"
+
+[node name="Area2D" type="Area2D" parent="CharacterBody2D" unique_id=831577002]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D" unique_id=2086551079]
+position = Vector2(29, 9)
+shape = SubResource("RectangleShape2D_ehpj2")
+
+[connection signal="body_entered" from="CharacterBody2D/Area2D" to="CharacterBody2D" method="causar_dano_personagem"]

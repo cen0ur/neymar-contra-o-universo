@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://ciqtjxxnbalt8"]
+
+[ext_resource type="Texture2D" uid="uid://bf2svwmhssb52" path="res://monica.png" id="1_jv3t4"]
+[ext_resource type="Script" uid="uid://cpgywo01nytw8" path="res://character_body_2d.gd" id="1_qi0nd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1xwnf"]
+size = Vector2(138, 222.75)
+
+[sub_resource type="Animation" id="Animation_qi0nd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Monica:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(465, 415, 236, 333)]
+}
+
+[sub_resource type="Animation" id="Animation_2o8ad"]
+resource_name = "atacando"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Monica:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 0.40000004, 0.6, 0.8000001),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(76, 27, 227, 316), Rect2(369, 31, 294, 312), Rect2(764, 35, 336, 307), Rect2(1119, 41, 407, 307), Rect2(1529, 35, 437, 307)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"atirar_cartao"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_0bwyw"]
+resource_name = "parado"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Monica:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 0.40000004, 0.6, 0.8000001),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(90, 419, 238, 329), Rect2(465, 415, 236, 333), Rect2(846, 419, 241, 330), Rect2(1222, 421, 242, 328), Rect2(1621, 420, 248, 328)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_17avs"]
+_data = {
+&"RESET": SubResource("Animation_qi0nd"),
+&"atacando": SubResource("Animation_2o8ad"),
+&"parado": SubResource("Animation_0bwyw")
+}
+
+[node name="Monica" type="Node2D" unique_id=964355489]
+position = Vector2(555, 472)
+
+[node name="Monica" type="CharacterBody2D" parent="." unique_id=1196530989]
+position = Vector2(-3, -4)
+collision_layer = 4
+script = ExtResource("1_qi0nd")
+
+[node name="Monica" type="Sprite2D" parent="Monica" unique_id=1966988886]
+position = Vector2(5.999878, 6)
+scale = Vector2(0.5011442, 0.65635175)
+texture = ExtResource("1_jv3t4")
+region_enabled = true
+region_rect = Rect2(465, 415, 236, 333)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Monica" unique_id=2092850370]
+position = Vector2(5, 3)
+shape = SubResource("RectangleShape2D_1xwnf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Monica" unique_id=974012696]
+libraries/ = SubResource("AnimationLibrary_17avs")
+
+[node name="Marker2D" type="Marker2D" parent="Monica" unique_id=1109417859]
+position = Vector2(97, -5)
+
+[node name="RayCast2D" type="RayCast2D" parent="Monica" unique_id=1654642783]
+position = Vector2(-414.00018, -4)
+scale = Vector2(5, 5)
+target_position = Vector2(406, -5.400009)
+collision_mask = 2
